@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript demo</title>
+
+    <!-- this CSS makes the page more readable but is not essential to the demo -->
+    <style> 
+        html {font-size: 20px;}
+        section {padding:1rem; margin: 1rem;}
+        body {display:grid; grid-template-columns: 1fr;} /* small screens */
+        h1 {font-family: Arial, Helvetica, sans-serif;}
+        .DOM {color: white;}
+
+        @media screen and (min-width: 600px) { /* medium screens */
+            body {grid-template-columns: 1fr 1fr;}
+        }
+
+        @media screen and (min-width: 1000px) { /* big screens */
+            body {grid-template-columns: 1fr 1fr 1fr 1fr;}
+        }
+
+    </style>
+
+    <script>
+
+        function helloWorld() { // a simple script to demonstrate HTML buttons and onClick
+            alert ('Hello, world!');
+        }
+
+        function variables() { // a simple script with variables
+            var num1 = 1;  // declare the variable named 'num1' and store the value "1" in it
+            var num2 = 2;  // another variable
+            var total = num1 + num2;  // add the contents of the first two variables and place the total in a third
+            alert ("the total is " + total);  // concatenate two strings and display the result
+        }
+
+        /* this function demonstrates the use of if-else */
+        function decision(thisNumber) { // function accept a value provided by the HTML
+            if (thisNumber % 2 == 0) {  // % means "modulo" i.e. "remainder after division"
+                alert('The number was even.')
+            } else {  // the if-condition was found not to be true ...
+                alert('The number was odd.')
+            }
+        }
+
+        function loop() { // demonstrates use of an array and a forEach loop
+            var universities = ['Melbourne', 'RMIT', 'Monash', 'Latrobe', 'Deakin'];  // the array
+            universities.forEach(element => {  // the loop
+                alert(element);                
+            });
+        }
+
+        /* The rest of these are for DOM manipulation ... */
+
+        /* show/hide something, e.g. a menu  */
+        function showHide(elementName) { // name of element is passed to the function
+            var target = document.getElementById(elementName); // find the element
+			if (target.style.display == "block") { // if element is currently visible, ...
+				target.style.display = "none"; // hide it
+			} else {  // but if it is currently hidden, ...
+				target.style.display = "block"; // make it visible
+			}
+        }
+
+        /* change the HTML content of an element */
+        function changeElement(elementName) {  // name of element is passed to the function
+            var messageTarget = document.getElementById(elementName);  // find the element
+            messageTarget.innerHTML = "<p>this is your message</p>";  // change its content
+            messageTarget.style.color = "lightpink";  // change its colour
+            messageTarget.style.fontSize = "larger";  // change its font size
+        }
+
+        /* add a new element to the DOM */
+        function addToList(elementName, newText) {  // parent UL and new text are passed to function
+            var addTarget = document.getElementById(elementName); // parent UL element is found
+            var newChild = document.createElement('LI'); // new LI element is created
+            addTarget.appendChild(newChild); // new LI element is added to parent UL
+            newChild.innerHTML = newText; // new LI gets text content
+        }
+
+        /* remove an element from the DOM */
+        function removeFromList(elementName) { // name of parent UL element is passed to function
+            var removeTarget = document.getElementById(elementName); // parent UL is found
+            removeTarget.removeChild(removeTarget.lastChild) // last child (LI) of this UL is removed
+        }
+
+        /* check the user has input valid data */
+        function checkForm() { // assumes there are two inputs called 'input1' and 'input2'
+            var input1 = document.getElementById("input1").value; // find element called 'input1.
+            var input2 = document.getElementById("input2").value; // find element called 'input2.
+            if (input1 === "")  // i.e. nothing was entered
+                alert("input1 is required"); // show error message
+            else if (input2 === "" || isNaN(input2))  // i.e. nothing was entered, or the data entered wasn't a number - isNAN means "is not a number"
+                alert("input2 must be a number"); // show error message
+            else  // all tests passed
+                alert("thank you for entering your data") // show success message
+        }
+
+        /* check that a form input contains a numerical value */
+        function checkNumber(elementName) {  // name of input is passed to function
+            var input = document.getElementById(elementName).value; // get the value that was entered into this input
+            if (isNaN(input)) { // is it a numerical value?
+                alert('must be a number'); // if not, show error message
+            }
+        }
+        
+    </script>
+</head>
+
+
+<body>
+
+    <section style="background-color: beige;">
+
+        <h1> JavaScript "Hello World" </h1>
+
+        <p> Uses 'alert' to display a message. </p>
+
+        <button onClick="helloWorld()">Click me!</button>
+    
+    </section>
+
+
+    <section style="background-color: lightgray;">
+
+        <h1> JavaScript variables </h1>
+
+        <p> Calculates sum of two variables. </p>
+
+        <button onClick="variables()">Click me!</button>
+    
+    </section>
+
+    <section style="background-color: lightblue;">
+
+        <h1> Decisions </h1>
+
+        <p> Users if/else to make a decision. </p>
+
+        <button onClick="decision(123)">Click me!</button>
+    
+    </section>
+
+    <section style="background-color: lightgreen;">
+
+        <h1> Loops </h1>
+
+        <p> Repeats an action several times. </p>
+
+        <button onClick="loop()">Click me!</button>
+    
+    </section>
+
+    <!-- the rest of these are for DOM manipulation -->
+
+    <section class="DOM" style="background-color:darkmagenta;">
+
+        <h1> Show / Hide </h1>
+
+        <p> Toggles an element between visible and invisible. </p>
+
+        <button onClick="showHide('hideMe')">Click me!</button>
+
+        <div id="hideMe" style="background-color: deeppink; height: 3rem; padding: 1rem; display: none;">
+            <p> This DIV will appear and disappear as you click the button ... </p>
+        </div>
+    
+    </section>
+
+    <section class="DOM" style="background-color: darkslateblue;">
+
+        <h1> Change an element </h1>
+
+            <p> Change HTML to show a message. </p>
+
+            <button onClick="changeElement('messageDiv')">Click me!</button>
+
+            <div id="messageDiv">
+                <p> (a message will replace this text ...) </p>
+            </div>
+                
+    </section>
+
+    <section class="DOM" style="background-color: darkred;">
+
+        <h1> Add/Remove elements </h1>
+
+            <p> Add and remove items from a list. </p>
+
+            <button onClick="addToList('listOfThings','some text')">Add</button>
+            <button onClick="removeFromList('listOfThings')">Remove</button>
+
+            <ul id="listOfThings">
+                <li> first list item </li>
+            </ul>
+                
+    </section>
+
+    <section class="DOM" style="background-color: seagreen;">
+
+        <h1> Form checking </h1>
+
+        <p> Check that user entered required data. </p>
+
+            <form>
+                <input id="input1">
+                <input id="input2" onChange="checkNumber('input2')">  <!-- triggered when focus leaves input -->
+                <input type="submit" value="Submit" onClick="checkForm()">  <!-- triggered when button clicked -->
+            </form>
+                        
+    </section>
+
+</body>
+</html>
